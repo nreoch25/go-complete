@@ -22,13 +22,14 @@ func main() {
 			zipCode: 94000,
 		},
 	}
-	jimPointer := &jim
-	jimPointer.updateName("Jimmy")
+	// turn variable to a memory address
+	jim.updateName("Jimmy")
 	jim.print()
 }
 
 func (pointerToPerson *person) updateName(newFirstName string) {
-	pointerToPerson.firstName = newFirstName
+	// turn pointer back to a value
+	(*pointerToPerson).firstName = newFirstName
 }
 
 func (p person) print() {
