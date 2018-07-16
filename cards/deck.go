@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"os"
 	"strings"
+	"time"
 )
 
 // Create a new type of deck
@@ -46,5 +48,21 @@ func newDeckFromFile(filename string) deck {
 	if err != nil {
 		fmt.Println("Error: ", err)
 		os.Exit(1)
+	}
+
+	s := strings.Split(string(bs), ",")
+	return deck(s)
+}
+
+func (d deck) shuffle() {
+	// Random Number Generator
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+	// Iterate through cards and get newPosition for each
+	// Swap the cards with the oldPosition and newPosition
+	for i := range d {
+		newPosition := r.Intn(len(d) - 1)
+		// Swap the two cards
+		d[i], d[newPosition] = d[newPosition], d[i]
 	}
 }
